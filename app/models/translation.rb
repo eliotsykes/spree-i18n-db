@@ -3,6 +3,8 @@ class Translation < ActiveRecord::Base
   # Return all the translation data as a locale keyed hash as expected by the
   # I18n.Backend.Simple.load_rb(filename) method
   def self.to_locale_hash
+    # Fail-safe for loading up rails prior to the first time the translations migration runs.
+    return {} unless translations_table_exists?
     translations = {}
     scope = nil
     Translation.all.each do |translation|
@@ -25,4 +27,9 @@ class Translation < ActiveRecord::Base
     return translations
   end
   
+  private
+  
+  def self.translations_table_exists?
+    return ActiveRecord::Base.connection.tables.include? :translations
+  end
 end
