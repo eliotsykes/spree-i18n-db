@@ -30,6 +30,6 @@ class Translation < ActiveRecord::Base
   private
   
   def self.translations_table_exists?
-    return ActiveRecord::Base.connection.tables.include? :translations
+    return ActiveRecord::Base.connection.tables.include? 'translations'
   end
 end
