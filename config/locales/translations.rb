@@ -1,0 +1,1 @@
+Translation.to_locale_hash
